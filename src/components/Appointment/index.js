@@ -21,12 +21,15 @@ export default function Appointment (props) {
                     <Show
                         student={props.interview.student}
                         interviewer={props.interview.interviewer}
+                        // onDelete={}
                     />
                 )}
                 {mode === CREATE && (
                     <Form
                         interviewer={props.interviews}
                         interviewers={props.interviewers}
+                        onCancel={back}
+                        
                     />
                 )}                  
         </article>
