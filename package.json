@@ -10,6 +10,7 @@
     "react-dom": "^16.9.0",
     "react-scripts": "3.0.0"
   },
+  "proxy": "http://localhost:8001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -48,6 +49,5 @@
       "<rootDir>/node_modules/",
       "<rootDir>/.git/"
     ]
-  },
-  "proxy": "http://localhost:8001"
+  }
 }

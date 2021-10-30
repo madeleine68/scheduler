@@ -3,47 +3,50 @@ import axios from "axios";
 
 import "components/Application.scss";
 import DayList from "./DayList";
-import Appointment from "./Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
-import useVisualMode from "hooks/__tests__/useVisualMode"
+import Appointment from "./Appointment/index";
+import { getAppointmentsForDay, getInterview , getInterviewersForDay} from "helpers/selectors";
+import useVisualMode from "hooks/useVisualMode"
 
 
-export default function Application(props) {
+export default function Application() {
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
-
+  
   const setDay = day => setState({...state,day});
   // const setDays = days => setState({...state,days});
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
- 
 
-  useEffect (() => {
+  useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:8001/api/days"),
-      axios.get("http://localhost:8001/api/appointments"),
-      axios.get("http://localhost:8001/api/interviewers")
-      
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers"),
     ]).then((all) => {
-      setState(prev => ({...prev,
+      setState((prev) => ({
+        ...prev,
         days: all[0].data,
         appointments: all[1].data,
-        interviewer: all[2].data }));
+        interviewers: all[2].data,
+      }));
     });
-  },[]);
-  
-  const schedule = dailyAppointments.map ((appointment) => {
-    const interview = getInterview(state,appointment.interview);
+  }, []);
+
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day)  
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
-            key={appointment.id} {...appointment}
-            // id={appointment.id}
-            // time={appointment.time}
-            // interview={appointment.interview}
-            // student={interview.student}
-            // interviewers={interviewers}
+            key={appointment.id} 
+            id={appointment.id}
+            time={appointment.time}
+            interview={interview}
+            interviewers={interviewers}
       />
     )
   })
