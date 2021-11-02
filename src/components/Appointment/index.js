@@ -5,14 +5,37 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form"
 import useVisualMode  from "hooks/useVisualMode";
+import Status from "./Status";
+import Confirm from "./Confirm";
 
 export default function Appointment (props) {
     const EMPTY = "EMPTY";
     const SHOW = "SHOW";
     const CREATE = "CREATE";
+    const SAVING ="SAVING";
+    const DELTEING = "DELETING";
+    const CONFIRM = "CONFIRM"
+
     const { mode, transition, back } = useVisualMode (
         props.interview ? SHOW : EMPTY            
     )
+    const save = function (name, interviewer) {
+        const interview = {
+          student: name,
+          interviewer,
+        };
+        transition(SAVING);
+        props.bookInterview(props.id, interview);
+        transition(SHOW);
+      };
+
+    const deleteAppointment = function () {
+        transition(DELTEING);
+        props.cancelInterview(props.id);
+        transition(EMPTY);
+    }
+    
+
     return (
         <article className="appointment">
             <Header time={props.time}/>
@@ -21,17 +44,32 @@ export default function Appointment (props) {
                     <Show
                         student={props.interview.student}
                         interviewer={props.interview.interviewer}
-                        // onDelete={}
+                        onDelete={()=> transition(CONFIRM)}
                     />
                 )}
                 {mode === CREATE && (
                     <Form
-                        interviewer={props.interviews}
                         interviewers={props.interviewers}
                         onCancel={back}
-                        
+                        onSave={save}
                     />
-                )}                  
+                )}
+                {mode === SAVING && (
+                    <Status
+                    message="Saving"                  
+                    />
+                )}
+                {mode === DELTEING && ( 
+                    <Status 
+                    message="Deleting"
+                    />
+                )}
+                {mode === CONFIRM && (
+                    <Confirm
+                    message="Are you sure you would like to delete?"
+                    onCancel={back}
+                    onConfirm={deleteAppointment}/>
+                )}
         </article>
     );
 }
