@@ -1,8 +1,6 @@
 import  React from "react";
 
 export default function Status (props) {
-
-console.log("=======,", props)
     return (
         <main className="appointment__card appointment__card--status">
             <img
