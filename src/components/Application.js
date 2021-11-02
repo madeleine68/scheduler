@@ -55,7 +55,7 @@ export default function Application() {
 
     return axios.put(`/api/appointments/${id}`, appointment )
       .then(res => {
-        console.log("sucess");
+        console.log("sucess!!!");
         setState(prev => ({
           ...prev,
          appointments
@@ -80,7 +80,7 @@ export default function Application() {
     });
     return axios.delete(`api/appointments/${id}`)
     .then(res => {
-      console.log("deleting")
+      console.log("deleting.......")
       setState(prev => ({
         ...prev,
         appointments
@@ -93,9 +93,8 @@ export default function Application() {
     const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
+            {...dailyAppointments}
             key={appointment.id} 
-            id={appointment.id}
-            time={appointment.time}
             interview={interview}
             interviewers={interviewers}
             bookInterview={bookInterview}

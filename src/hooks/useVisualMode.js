@@ -6,20 +6,19 @@ function useVisualMode (initial) {
     const [mode, setMode] = useState(initial);
     const [history, setHistory] = useState([initial]);
 
-    function transition (newMode, error) {
+    function transition (newMode, replace = false) {
         //If there is an error, places the new mode in the correct position
-    if (error) {
-      const newHistory = [...history];
-      newHistory.pop();
-      
-      setHistory(prevHistory => [...newHistory, newMode]);
-      setMode(newMode);
-    } else {
-      //Change history to a copy of the history with newMode at the end.
-      setHistory(prevHistory => [...prevHistory, newMode]);
-      //Asign mode to new mode
-      setMode(newMode);
-    }
+        if (replace) {
+          setMode((prev) => newMode)
+          let replaceHistory = [...history];
+          replaceHistory[replaceHistory.length - 1] = mode;
+          setHistory((prev) => replaceHistory);
+        } else {
+          setMode((prev) => newMode);
+          let newHistory = [...history];
+          newHistory.push(newMode);
+          setHistory((prev) => newHistory);
+        }
   };
     function back () {
         if (history.length === 1 ) return;
