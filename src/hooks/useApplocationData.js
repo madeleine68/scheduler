@@ -28,6 +28,27 @@ export default function useApplicationData (props) {
         });
       }, []);
     
+
+      const updateSpots = (state, appointments) => {
+        //state.days --> old, appointment--> new
+        const days = state.days.map((day) => {
+          const newSpot = day.appointments.reduce((prev, bookedId) => {
+            if (appointments[bookedId].interview === null) {
+              //increament available spot ---> canceling
+              return prev + 1;
+            } else {
+              return prev;
+            }
+          }, 0);
+          if (state.day === day.name) {
+            return { ...day, spots: newSpot };
+          } else {
+            return { ...day };
+          }
+        });
+        return days;
+      };
+
        const bookInterview = (id, interview) => {
         console.log(`id:${id}, interview: ${interview}`);
     
@@ -40,24 +61,14 @@ export default function useApplicationData (props) {
           ...state.appointments,
           [id]: appointment
         };
-    
-        setState({
-          ...state,
-          appointments
-        });
-        // const countSpot = function (state) {
-        //   let spot =  5;
-        //   state.days.map(day => day.name === state.day)
-        //   // const day = {...state.days[index], spots:interview === null ? spots+1 : spots-1};
-        // }
-        // console.log(appointments.interview)
-        
+        const days = updateSpots(state, appointments);
+
         return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment )
           .then(res => {
             console.log("sucess!!!");
             setState(prev => ({
               ...prev,
-             appointments
+             appointments, days
             }))
             
           })
@@ -73,17 +84,14 @@ export default function useApplicationData (props) {
           ...state.appointments,
           [id]: appointment
         }
-    
-        setState({
-          ...state,
-          appointments
-        });
+        const days = updateSpots(state, appointments);
+
         return axios.delete(`/api/appointments/${id}`)
         .then(res => {
           console.log("deleting.......")
           setState(prev => ({
             ...prev,
-            appointments
+            appointments, days
           }))
         })
       }
