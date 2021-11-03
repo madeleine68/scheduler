@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { message } from "statuses";
 
 export default function useApplicationData (props) {
   
@@ -44,7 +45,13 @@ export default function useApplicationData (props) {
           ...state,
           appointments
         });
-    
+        // const countSpot = function (state) {
+        //   let spot =  5;
+        //   state.days.map(day => day.name === state.day)
+        //   // const day = {...state.days[index], spots:interview === null ? spots+1 : spots-1};
+        // }
+        // console.log(appointments.interview)
+        
         return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment )
           .then(res => {
             console.log("sucess!!!");
