@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
-
 export default function Form (props) {
     const [student, setStudent] = useState(props.name || "");
     const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -17,8 +16,11 @@ export default function Form (props) {
         props.onCancel(); 
     }
     const validate = function () {
-       
-        if(!student) {
+        if (!interviewer || !student) {
+            alert("Please select your interviewer and type your name")
+            return;
+        }
+        if(student === 0) {
             setError("Student name cannot be blank");
             return
         }
