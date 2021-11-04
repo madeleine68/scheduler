@@ -1,7 +1,7 @@
 # Interview Scheduler
  I build and test a single page React application that allows users to book and cancel interviews. I combine a concise API with a WebSocket server to build a realtime experience.
  ## Delete an Interview
-![Alt text](public/images/delete.gif)
+![Alt text](public/images/delete1.gif)
 ## Edit and Interview
 ![Alt text](public/images/edit.gif)
 ## Setup
