@@ -22,29 +22,29 @@ export function getInterview(state, interview) {
 }
 
 
-// export function getInterviewersForDay(state, day) {
-//   const filteredDays = state.days.filter((singleDay) => { 
-//     return singleDay.name === day
-//     })
-
-//   if (filteredDays.length === 0) {
-//     return [];
-//   }
-//   const interviewersMapped = filteredDays[0].interviewers.map((int) => {
-//     return state.interviewers[int]
-//   })
-
-//   return interviewersMapped;
-// }
-
 export function getInterviewersForDay(state, day) {
-  const result = [];
-  const dayData = state.days.filter(d => d.name === day)
+  const filteredDays = state.days.filter((singleDay) => { 
+    return singleDay.name === day
+    })
 
-  if (!dayData[0]) return result;
-  for (const a of dayData[0].interviewers) {
-    result.push(state.interviewers[a]);
+  if (filteredDays.length === 0) {
+    return [];
   }
+  const interviewersMapped = filteredDays[0].interviewers.map((int) => {
+    return state.interviewers[int]
+  })
+
+  return interviewersMapped;
+}
+
+// export function getInterviewersForDay(state, day) {
+//   const result = [];
+//   const dayData = state.days.filter(d => d.name === day)
+
+//   if (!dayData[0]) return result;
+//   for (const a of dayData[0].interviewers) {
+//     result.push(state.interviewers[a]);
+//   }
   
-  return result;
-};
+//   return result;
+// };
