@@ -35,3 +35,11 @@ npm test
 ```sh
 npm run storybook
 ```
+## Technical Specifications
+- React
+- Webpack, Babel
+- Axios, WebSockets
+- Axios
+- Storybook, Webpack Dev Server, Jest, Testing Library
+
+
