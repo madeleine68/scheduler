@@ -16,7 +16,6 @@ const formatSpots = function(spots) {
 
 
 export default function DayListItem(props) {
-    // const message=formatSpots(props.spots)
 
     const dayClass = classNames("day-list__item",
         {

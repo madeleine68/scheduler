@@ -50,7 +50,6 @@ export default function useApplicationData (props) {
       };
 
        const bookInterview = (id, interview) => {
-        console.log(`id:${id}, interview: ${interview}`);
     
         const appointment = {
           ...state.appointments[id],
@@ -63,9 +62,8 @@ export default function useApplicationData (props) {
         };
         const days = updateSpots(state, appointments);
 
-        return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment )
+        return axios.put(`/api/appointments/${id}`, appointment )
           .then(res => {
-            console.log("success ✅");
             setState(prev => ({
               ...prev,
              appointments, days
@@ -88,7 +86,6 @@ export default function useApplicationData (props) {
 
         return axios.delete(`/api/appointments/${id}`)
         .then(res => {
-          console.log("deleting... 🚫")
           setState(prev => ({
             ...prev,
             appointments, days
