@@ -4,7 +4,6 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment/index";
 import { getAppointmentsForDay, getInterview , getInterviewersForDay} from "helpers/selectors";
-import useVisualMode from "hooks/useVisualMode"
 import useApplicationData from "hooks/useApplocationData";
 
 

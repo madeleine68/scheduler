@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import axios from "axios";
-import { message } from "statuses";
 
 export default function useApplicationData (props) {
   
