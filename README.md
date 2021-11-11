@@ -7,7 +7,7 @@
  ## Delete an Interview
 ![Alt text](public/images/delete1.gif)
 
-## Edit and Interview
+## Edit an Interview
 ![Alt text](public/images/edit.gif)
 
 ## Handling Error
